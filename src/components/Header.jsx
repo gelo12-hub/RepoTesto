@@ -1,49 +1,87 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
+import "./header.css";
 
 export default function Header() {
   const { cart } = useCart();
+  const { isLoggedIn, logout } = useAuth();
+
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <header className="navbar">
-      <div className="logo">
-        <Link to="/">SoleStyle</Link>
-      </div>
+    <header className="navbar-glass">
+      <div className="navbar-container">
 
-      <nav>
-        <ul>
-          <li><Link to="/" className="active">Home</Link></li>
-          <li><Link to="/shop">Shop</Link></li>
-          <li><Link to="/collections">Collections</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
+        {/* LOGO */}
+        <div className="logo">
+          <Link to="/">SoleStyle</Link>
+        </div>
 
-          {/* 🛒 Cart Icon */}
-          <li style={{ position: "relative" }}>
-            <Link to="/cart" style={{ fontSize: "20px" }}>🛒</Link>
+        {/* NAVIGATION */}
+        <nav>
+          <ul className="nav-links">
+            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/shop">Shop</NavLink></li>
+            <li><NavLink to="/about">About</NavLink></li>
+            <li><NavLink to="/contact">Contact</NavLink></li>
+            <li><NavLink to="/orders">My Orders</NavLink></li>
 
-            {totalItems > 0 && (
-              <span
-                style={{
-                  position: "absolute",
-                  top: -5,
-                  right: -10,
-                  background: "red",
-                  color: "white",
-                  borderRadius: "50%",
-                  padding: "4px 8px",
-                  fontSize: "12px"
-                }}
-              >
-                {totalItems}
-              </span>
+            {/* Show Login if NOT logged in */}
+            {!isLoggedIn && (
+              <li><NavLink to="/login">Login</NavLink></li>
             )}
-          </li>
-        </ul>
-      </nav>
+
+            {/* CART */}
+            <li className="cart-icon-wrapper">
+              <Link to="/cart" className="cart-icon">🛒</Link>
+
+              {totalItems > 0 && (
+                <span className="cart-count">{totalItems}</span>
+              )}
+            </li>
+
+            {/* PROFILE MENU (only when logged in) */}
+            {isLoggedIn && (
+              <li className="profile-wrapper">
+                <div
+                  className="profile-icon"
+                  onClick={() => setMenuOpen(!menuOpen)}
+                >
+                  👤
+                </div>
+
+                {menuOpen && (
+                  <div className="profile-menu">
+                    <Link to="/orders" onClick={() => setMenuOpen(false)}>
+                      My Orders
+                    </Link>
+
+                    <Link to="/account" onClick={() => setMenuOpen(false)}>
+                      Account Settings
+                    </Link>
+
+                    <button
+                      className="logout-btn"
+                      onClick={() => {
+                        logout();
+                        setMenuOpen(false);
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </li>
+            )}
+
+          </ul>
+        </nav>
+
+      </div>
     </header>
   );
 }

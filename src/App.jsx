@@ -1,6 +1,7 @@
-// src/App.jsx
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+
+import { useAuth } from "./context/AuthContext";
 
 // Homepage components
 import Header from './components/Header.jsx';
@@ -12,60 +13,64 @@ import Footer from './components/Footer.jsx';
 
 // Page components
 import ShopPage from './pages/ShopPage.jsx';
-import CollectionsPage from './pages/CollectionsPage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
 import CartPage from "./pages/CartPage.jsx";
 import CheckoutPage from "./pages/CheckoutPage.jsx";
-
-<Route path="/checkout" element={<CheckoutPage />} />
-
-
-// Product Details Page
+import LoginPage from './pages/LoginPage.jsx';
 import ProductDetailsPage from './pages/ProductDetailsPage.jsx';
+import AccountSettings from './pages/AccountSettings.jsx';
+import OrdersPage from "./pages/OrdersPage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx"; // ✅ NEW
 
 function App() {
+  const { isLoggedIn } = useAuth();
+
   return (
     <>
-      <Header />
+      {isLoggedIn && <Header />}
 
-     <main>
-  <Routes>
+      <main>
+        <Routes>
 
-    {/* HOME PAGE */}
-    <Route path="/" element={
-      <>
-        <HeroSection />
-        <FeaturesSection />
-        <JourneySection />
-        <TestimonialsSection />
-      </>
-    } />
+          {/* PUBLIC ROUTES */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-    {/* OTHER PAGES */}
-    <Route path="/shop" element={<ShopPage />} />
-    <Route path="/collections" element={<CollectionsPage />} />
-    <Route path="/about" element={<AboutPage />} />
-    <Route path="/contact" element={<ContactPage />} />
+          {/* PROTECTED ROUTES */}
+          {isLoggedIn ? (
+            <>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <HeroSection />
+                    <FeaturesSection />
+                    <JourneySection />
+                    <TestimonialsSection />
+                  </>
+                }
+              />
 
-    {/* PRODUCT DETAILS PAGE */}
-    <Route path="/product/:id" element={<ProductDetailsPage />} />
+              <Route path="/shop" element={<ShopPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/product/:id" element={<ProductDetailsPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/account" element={<AccountSettings />} />
+              <Route path="/orders" element={<OrdersPage />} />
+            </>
+          ) : (
+            <Route path="*" element={<Navigate to="/login" />} />
+          )}
 
-    {/* CART PAGE */}
-    <Route path="/cart" element={<CartPage />} />
+        </Routes>
+      </main>
 
-    {/* ✅ CHECKOUT PAGE (this must be INSIDE <Routes>) */}
-    <Route path="/checkout" element={<CheckoutPage />} />
-
-  </Routes>
-</main>
-
-
-      <Footer />
+      {isLoggedIn && <Footer />}
     </>
   );
 }
 
 export default App;
-
-

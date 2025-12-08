@@ -1,0 +1,117 @@
+/* Wrapper */
+.contact-wrapper {
+  width: 70%;
+  padding: 25px 20px;
+  max-width: 900px;
+  margin: auto;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Header Section */
+.contact-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.contact-header h1 {
+  font-size: 36px;
+  margin-top: 10px;
+}
+
+.contact-header p {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+.contact-icon {
+  font-size: 40px;
+}
+
+/* Form Card */
+.contact-form-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 50px;
+}
+
+.contact-form-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form Layout */
+.contact-form {
+  display: grid;
+  gap: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.contact-form button {
+  padding: 12px;
+  background: #007bff;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.contact-form button:hover {
+  background: #0056c2;
+}
+
+/* Support Boxes */
+.contact-support {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.support-box {
+  width: 240px;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+  transition: transform 0.3s ease;
+}
+
+.support-box:hover {
+  transform: translateY(-6px);
+}
+
+.support-icon {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.support-box small {
+  color: #6c757d;
+}
+
+/* Fade In Animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(25px);
+  animation: fadeInUp 0.7s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

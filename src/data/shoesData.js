@@ -1,11 +1,10 @@
 const shoesData = [
   // --- MEN'S SHOES (8) ---
   {
-    
     id: 1,
     category: "Men's Shoes",
     name: "Leather Oxford",
-    price: 120.00,
+    price: 587.42,
     images: [
       "/images/men/B1.png",
       "/images/men/BB1.png",
@@ -18,7 +17,7 @@ const shoesData = [
     id: 2,
     category: "Men's Shoes",
     name: "Casual Loafer",
-    price: 85.50,
+    price: 903.11,
     images: [
       "/images/men/B2.png",
       "/images/men/BB2.png",
@@ -31,7 +30,7 @@ const shoesData = [
     id: 3,
     category: "Men's Shoes",
     name: "Running Sneaker",
-    price: 95.00,
+    price: 764.55,
     images: [
       "/images/men/B3.png",
       "/images/men/BB3.png",
@@ -44,7 +43,7 @@ const shoesData = [
     id: 4,
     category: "Men's Shoes",
     name: "Hiking Boot",
-    price: 140.00,
+    price: 512.08,
     images: [
       "/images/men/B4.png",
       "/images/men/BB4.png",
@@ -57,7 +56,7 @@ const shoesData = [
     id: 5,
     category: "Men's Shoes",
     name: "White Tennis Shoe",
-    price: 75.00,
+    price: 649.77,
     images: [
       "/images/men/B5.png",
       "/images/men/BB5.png",
@@ -70,7 +69,7 @@ const shoesData = [
     id: 6,
     category: "Men's Shoes",
     name: "Suede Chukka",
-    price: 110.00,
+    price: 888.20,
     images: [
       "/images/men/B6.png",
       "/images/men/BB6.png",
@@ -83,7 +82,7 @@ const shoesData = [
     id: 7,
     category: "Men's Shoes",
     name: "Classic Derby",
-    price: 130.0    ,
+    price: 533.94,
     images: [
       "/images/men/B7.png",
       "/images/men/BB7.png",
@@ -96,7 +95,7 @@ const shoesData = [
     id: 8,
     category: "Men's Shoes",
     name: "Slip-on Sandal",
-    price: 45.00,
+    price: 701.63,
     images: [
       "/images/men/B8.png",
       "/images/men/BB8.png",
@@ -105,16 +104,17 @@ const shoesData = [
     description: "Comfortable slip-on sandals ideal for warm weather and travel.",
     sizes: [39, 40, 41, 42, 43]
   },
+
   // --- WOMEN'S SHOES (8) ---
- {
+  {
     id: 9,
     category: "Women's Shoes",
     name: "Classic Pump",
-    price: 99.99,
+    price: 945.10,
     images: [
       "/images/women/G1.png",
-      "/images/women/GG1.png", // Corrected
-      "/images/women/GG-1.png" // Corrected
+      "/images/women/GG1.png",
+      "/images/women/GG-1.png"
     ],
     description: "Timeless high-heel pumps designed for elegance and comfort.",
     sizes: [35, 36, 37, 38, 39, 40]
@@ -123,11 +123,11 @@ const shoesData = [
     id: 10,
     category: "Women's Shoes",
     name: "Ballet Flat",
-    price: 65.00,
+    price: 582.39,
     images: [
       "/images/women/G2.png",
-      "/images/women/GG2.png", // Corrected
-      "/images/women/GG-2.png" // Corrected
+      "/images/women/GG2.png",
+      "/images/women/GG-2.png"
     ],
     description: "Soft ballet flats perfect for daily wear and effortless style.",
     sizes: [35, 36, 37, 38, 39]
@@ -136,11 +136,11 @@ const shoesData = [
     id: 11,
     category: "Women's Shoes",
     name: "Sport Trainer",
-    price: 90.00,
+    price: 799.02,
     images: [
       "/images/women/G3.png",
-      "/images/women/GG3.png", // Corrected
-      "/images/women/GG-3.png" // Corrected
+      "/images/women/GG3.png",
+      "/images/women/GG-3.png"
     ],
     description: "Light, flexible sport trainers suitable for gym and outdoor workouts.",
     sizes: [36, 37, 38, 39, 40]
@@ -149,11 +149,11 @@ const shoesData = [
     id: 12,
     category: "Women's Shoes",
     name: "Ankle Boot",
-    price: 115.00,
+    price: 624.88,
     images: [
       "/images/women/G4.png",
-      "/images/women/GG4.png", // Corrected
-      "/images/women/GG-4.png" // Corrected
+      "/images/women/GG4.png",
+      "/images/women/GG-4.png"
     ],
     description: "Chic ankle boots crafted for comfort and modern fashion.",
     sizes: [36, 37, 38, 39, 40]
@@ -162,11 +162,11 @@ const shoesData = [
     id: 13,
     category: "Women's Shoes",
     name: "Wedge Sandal",
-    price: 70.00,
+    price: 573.41,
     images: [
       "/images/women/G5.png",
-      "/images/women/GG5.png", // Corrected
-      "/images/women/GG-5.png" // Corrected
+      "/images/women/GG5.png",
+      "/images/women/GG-5.png"
     ],
     description: "Stylish wedge sandals with premium cushioning and support.",
     sizes: [36, 37, 38, 39]
@@ -175,11 +175,11 @@ const shoesData = [
     id: 14,
     category: "Women's Shoes",
     name: "Leather Loafer",
-    price: 80.00,
+    price: 820.67,
     images: [
       "/images/women/G6.png",
-      "/images/women/GG6.png", // Corrected
-      "/images/women/GG-6.png" // Corrected
+      "/images/women/GG6.png",
+      "/images/women/GG-6.png"
     ],
     description: "Elegant leather loafers offering all-day comfort.",
     sizes: [35, 36, 37, 38, 39, 40]
@@ -188,11 +188,11 @@ const shoesData = [
     id: 15,
     category: "Women's Shoes",
     name: "Heeled Sandal",
-    price: 105.00,
+    price: 931.22,
     images: [
       "/images/women/G7.png",
-      "/images/women/GG7.png", // Corrected
-      "/images/women/GG-7.png" // Corrected
+      "/images/women/GG7.png",
+      "/images/women/GG-7.png"
     ],
     description: "Modern heeled sandals designed for special events and nights out.",
     sizes: [36, 37, 38, 39, 40]
@@ -201,11 +201,11 @@ const shoesData = [
     id: 16,
     category: "Women's Shoes",
     name: "Knee-High Boot",
-    price: 150.00,
+    price: 689.04,
     images: [
       "/images/women/G8.png",
-      "/images/women/GG8.png", // Corrected
-      "/images/women/GG-8.png" // Corrected
+      "/images/women/GG8.png",
+      "/images/women/GG-8.png"
     ],
     description: "Premium knee-high boots crafted for both warmth and fashion.",
     sizes: [36, 37, 38, 39, 40, 41]
@@ -216,11 +216,11 @@ const shoesData = [
     id: 17,
     category: "Boy's Shoes",
     name: "Blue Runner",
-    price: 35.00,
+    price: 758.19,
     images: [
       "/images/boys/X1.png",
-      "/images/boys/XX1.png", // Corrected
-      "/images/boys/XX-1.png" // Corrected
+      "/images/boys/XX1.png",
+      "/images/boys/XX-1.png"
     ],
     description: "Lightweight running shoes designed for active boys.",
     sizes: [30, 31, 32, 33, 34]
@@ -229,11 +229,11 @@ const shoesData = [
     id: 18,
     category: "Boy's Shoes",
     name: "Velcro Sneaker",
-    price: 40.00,
+    price: 540.66,
     images: [
       "/images/boys/X2.png",
-      "/images/boys/XX2.png", // Corrected
-      "/images/boys/XX-2.png" // Corrected
+      "/images/boys/XX2.png",
+      "/images/boys/XX-2.png"
     ],
     description: "Easy-strap velcro sneakers for quick on-and-off convenience.",
     sizes: [30, 31, 32, 33, 34]
@@ -242,11 +242,11 @@ const shoesData = [
     id: 19,
     category: "Boy's Shoes",
     name: "Adventure Boot",
-    price: 55.00,
+    price: 874.33,
     images: [
       "/images/boys/X3.png",
-      "/images/boys/XX3.png", // Corrected
-      "/images/boys/XX-3.png" // Corrected
+      "/images/boys/XX3.png",
+      "/images/boys/XX-3.png"
     ],
     description: "Sturdy adventure boots built for outdoor play.",
     sizes: [31, 32, 33, 34, 35]
@@ -255,11 +255,11 @@ const shoesData = [
     id: 20,
     category: "Boy's Shoes",
     name: "School Loafer",
-    price: 30.00,
+    price: 927.51,
     images: [
       "/images/boys/X4.png",
-      "/images/boys/XX4.png", // Corrected
-      "/images/boys/XX-4.png" // Corrected
+      "/images/boys/XX4.png",
+      "/images/boys/XX-4.png"
     ],
     description: "Classic school loafers designed for uniform use.",
     sizes: [30, 31, 32, 33, 34]
@@ -268,11 +268,11 @@ const shoesData = [
     id: 21,
     category: "Boy's Shoes",
     name: "Sport Sandal",
-    price: 25.00,
+    price: 600.14,
     images: [
       "/images/boys/X5.png",
-      "/images/boys/XX5.png", // Corrected
-      "/images/boys/XX-5.png" // Corrected
+      "/images/boys/XX5.png",
+      "/images/boys/XX-5.png"
     ],
     description: "Breathable sport sandals ideal for warm weather.",
     sizes: [30, 31, 32, 33]
@@ -281,11 +281,11 @@ const shoesData = [
     id: 22,
     category: "Boy's Shoes",
     name: "High-Top Sneaker",
-    price: 45.00,
+    price: 915.98,
     images: [
       "/images/boys/X6.png",
-      "/images/boys/XX6.png", // Corrected
-      "/images/boys/XX-6.png" // Corrected
+      "/images/boys/XX6.png",
+      "/images/boys/XX-6.png"
     ],
     description: "Trendy high-top sneakers with extra ankle support.",
     sizes: [31, 32, 33, 34]
@@ -294,11 +294,11 @@ const shoesData = [
     id: 23,
     category: "Boy's Shoes",
     name: "Casual Canvas",
-    price: 38.00,
+    price: 547.29,
     images: [
       "/images/boys/X7.png",
-      "/images/boys/XX7.png", // Corrected
-      "/images/boys/XX-7.png" // Corrected
+      "/images/boys/XX7.png",
+      "/images/boys/XX-7.png"
     ],
     description: "Stylish canvas shoes perfect for everyday outfits.",
     sizes: [30, 31, 32, 33, 34]
@@ -307,11 +307,11 @@ const shoesData = [
     id: 24,
     category: "Boy's Shoes",
     name: "Rain Boot",
-    price: 50.00,
+    price: 881.73,
     images: [
       "/images/boys/X8.png",
-      "/images/boys/XX8.png", // Corrected
-      "/images/boys/XX-8.png" // Corrected
+      "/images/boys/XX8.png",
+      "/images/boys/XX-8.png"
     ],
     description: "Waterproof rain boots ideal for wet and muddy play.",
     sizes: [30, 31, 32, 33]
@@ -322,11 +322,11 @@ const shoesData = [
     id: 25,
     category: "Girl's Shoes",
     name: "Pink Glitter Flat",
-    price: 32.00,
+    price: 763.44,
     images: [
       "/images/girls/Y1.png",
-      "/images/girls/YY1.png", // Corrected
-      "/images/girls/YY-1.png" // Corrected
+      "/images/girls/YY1.png",
+      "/images/girls/YY-1.png"
     ],
     description: "Sparkly glitter flats perfect for parties and dress-up.",
     sizes: [28, 29, 30, 31, 32]
@@ -335,11 +335,11 @@ const shoesData = [
     id: 26,
     category: "Girl's Shoes",
     name: "Mary Jane Shoe",
-    price: 39.00,
+    price: 578.95,
     images: [
       "/images/girls/Y2.png",
-      "/images/girls/YY2.png", // Corrected
-      "/images/girls/YY-2.png" // Corrected
+      "/images/girls/YY2.png",
+      "/images/girls/YY-2.png"
     ],
     description: "Classic Mary Jane shoes with soft ankle straps.",
     sizes: [28, 29, 30, 31, 32]
@@ -348,11 +348,11 @@ const shoesData = [
     id: 27,
     category: "Girl's Shoes",
     name: "Leopard Sneaker",
-    price: 42.00,
+    price: 999.30,
     images: [
       "/images/girls/Y3.png",
-      "/images/girls/YY3.png", // Corrected
-      "/images/girls/YY-3.png" // Corrected
+      "/images/girls/YY3.png",
+      "/images/girls/YY-3.png"
     ],
     description: "Trendy leopard-pattern sneakers for stylish kids.",
     sizes: [29, 30, 31, 32, 33]
@@ -361,11 +361,11 @@ const shoesData = [
     id: 28,
     category: "Girl's Shoes",
     name: "Winter Boot",
-    price: 60.00,
+    price: 834.17,
     images: [
       "/images/girls/Y4.png",
-      "/images/girls/YY4.png", // Corrected
-      "/images/girls/YY-4.png" // Corrected
+      "/images/girls/YY4.png",
+      "/images/girls/YY-4.png"
     ],
     description: "Warm, comfortable winter boots perfect for cold weather.",
     sizes: [28, 29, 30, 31, 32, 33]
@@ -374,11 +374,11 @@ const shoesData = [
     id: 29,
     category: "Girl's Shoes",
     name: "Sparkle Sandal",
-    price: 28.00,
+    price: 690.82,
     images: [
       "/images/girls/Y5.png",
-      "/images/girls/YY5.png", // Corrected
-      "/images/girls/YY-5.png" // Corrected
+      "/images/girls/YY5.png",
+      "/images/girls/YY-5.png"
     ],
     description: "Cute sparkle sandals designed for summer fun.",
     sizes: [28, 29, 30, 31]
@@ -387,11 +387,11 @@ const shoesData = [
     id: 30,
     category: "Girl's Shoes",
     name: "Ballet Slipper",
-    price: 20.00,
+    price: 521.06,
     images: [
       "/images/girls/Y6.png",
-      "/images/girls/YY6.png", // Corrected
-      "/images/girls/YY-6.png" // Corrected
+      "/images/girls/YY6.png",
+      "/images/girls/YY-6.png"
     ],
     description: "Soft ballet slippers ideal for practice or play.",
     sizes: [28, 29, 30, 31]
@@ -400,11 +400,11 @@ const shoesData = [
     id: 31,
     category: "Girl's Shoes",
     name: "Purple Runner",
-    price: 37.00,
+    price: 750.59,
     images: [
       "/images/girls/Y7.png",
-      "/images/girls/YY7.png", // Corrected
-      "/images/girls/YY-7.png" // Corrected
+      "/images/girls/YY7.png",
+      "/images/girls/YY-7.png"
     ],
     description: "Colorful running shoes built for active girls.",
     sizes: [28, 29, 30, 31, 32]
@@ -413,16 +413,15 @@ const shoesData = [
     id: 32,
     category: "Girl's Shoes",
     name: "Cute Clog",
-    price: 33.00,
+    price: 612.47,
     images: [
       "/images/girls/Y8.png",
-      "/images/girls/YY8.png", // Corrected
-      "/images/girls/YY-8.png" // Corrected
+      "/images/girls/YY8.png",
+      "/images/girls/YY-8.png"
     ],
     description: "Light and breathable clogs for all-day comfort.",
     sizes: [28, 29, 30, 31, 32]
   }
-
 ];
 
 export default shoesData;

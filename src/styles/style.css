@@ -211,10 +211,10 @@ footer { background-color: var(--background-light); padding: 60px 20px; }
 .product-card {
     padding: 20px;
     background: linear-gradient(135deg, #6b96fa,#eaf6fb, #ffffff);
-    border: 1px solid #000000;
+    border: 1px solid #ffffff;
     border-radius: 8px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.582);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 

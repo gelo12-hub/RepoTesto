@@ -1,95 +1,79 @@
-// src/pages/AboutPage.jsx
-import React from 'react';
+import React from "react";
+import "./about.css";
 
-function AboutPage() {
+export default function AboutPage() {
   return (
-    <div className="about-page-content" style={{ 
-        maxWidth: '750px', 
-        margin: '60px auto', 
-        padding: '0 20px', 
-        textAlign: 'center' 
-    }}>
-      
-      {/* --- Main Heading and Story --- */}
-      <h1 style={{ 
-          fontSize: '2.5em', 
-          marginBottom: '20px', 
-          borderBottom: '1px solid #ddd',
-          paddingBottom: '10px'
-      }}>
-          Crafted for Life's Journey
-      </h1>
-      
-      <p style={{ 
-          fontSize: '1.2em', 
-          color: '#333', 
-          marginBottom: '60px',
-          lineHeight: '1.6'
-      }}>
-          Founded in 2025, SoleStyle crafts luxury footwear committed to a higher standard. We believe exceptional style and ultimate comfort should never compromise the planet. Through ethical production and sustainable materials, we create shoes that feel incredible and are made to last.
-      </p>
+    <div className="about-wrapper">
 
-      {/* --- Vision & Values Section --- */}
-      <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          gap: '30px', 
-          marginTop: '40px',
-          padding: '40px 0'
-      }}>
-        
-        {/* Value 1: Craftsmanship */}
-        <div style={{ flex: 1 }}>
-          <h3 style={{ color: '#333', marginBottom: '10px', fontSize: '1.2em' }}>
-            <span style={{ color: '#007bff', fontSize: '1.5em', marginRight: '5px' }}>★</span> Craftsmanship
-          </h3>
-          <p style={{ color: '#666', fontSize: '0.95em' }}>
-            Every pair is built by expert artisans who honor traditional techniques, ensuring a legacy of quality and durability.
+      {/* ---- HERO BANNER ---- */}
+      <section className="about-hero">
+        <div className="hero-text">
+          <h1>Crafted for Life's Journey</h1>
+          <p>
+            At SoleStyle, we blend craftsmanship, comfort, and purpose to create
+            footwear designed for movement — and made to last.
           </p>
         </div>
-        
-        {/* Value 2: Purpose */}
-        <div style={{ flex: 1 }}>
-          <h3 style={{ color: '#333', marginBottom: '10px', fontSize: '1.2em' }}>
-            <span style={{ color: '#28a745', fontSize: '1.5em', marginRight: '5px' }}>🌍</span> Purpose
-          </h3>
-          <p style={{ color: '#666', fontSize: '0.95em' }}>
-            We prioritize **sustainable sourcing** and ethical manufacturing, committing to a smaller environmental footprint.
-          </p>
-        </div>
-        
-        {/* Value 3: Comfort */}
-        <div style={{ flex: 1 }}>
-          <h3 style={{ color: '#333', marginBottom: '10px', fontSize: '1.2em' }}>
-            <span style={{ color: '#ffc107', fontSize: '1.5em', marginRight: '5px' }}>☁️</span> Unmatched Comfort
-          </h3>
-          <p style={{ color: '#666', fontSize: '0.95em' }}>
-            Our footwear engineering focuses on ergonomic design, offering all-day support without sacrificing elegance.
+      </section>
+
+      {/* ---- BRAND STORY ---- */}
+      <section className="brand-story fade-in">
+        <h2>Our Story</h2>
+        <p>
+          Founded in 2025, SoleStyle creates footwear that meets a higher
+          standard. Every pair is crafted with exceptional attention to detail,
+          premium materials, and ethical production.  
+          <br /><br />
+          We believe style and comfort should never compromise sustainability.
+          Through mindful sourcing and innovative design, we build footwear that
+          feels incredible from the very first step.
+        </p>
+      </section>
+
+      {/* ---- FEATURES ---- */}
+      <section className="features fade-in">
+        <div className="feature-item">
+          <span className="feature-icon">⭐</span>
+          <h3>Craftsmanship</h3>
+          <p>
+            Expertly handcrafted with traditional techniques that ensure
+            durability, comfort, and timeless style.
           </p>
         </div>
 
-      </div>
+        <div className="feature-item">
+          <span className="feature-icon">🌍</span>
+          <h3>Purpose</h3>
+          <p>
+            Mindfully sourced materials and ethical manufacturing to support a
+            smaller environmental footprint.
+          </p>
+        </div>
 
-      {/* --- Call to Action --- */}
-      <p style={{ 
-          marginTop: '60px', 
-          paddingTop: '30px', 
-          borderTop: '1px solid #eee', 
-          fontSize: '1.1em' 
-      }}>
-          <span style={{ fontWeight: 'bold' }}>Ready to step into our story?</span>
-          <a href="/shop" style={{ 
-              marginLeft: '15px', 
-              color: '#007bff', 
-              textDecoration: 'none', 
-              fontWeight: 'bold' 
-          }}>
-              Shop the Collection &rarr;
-          </a>
-      </p>
-      
+        <div className="feature-item">
+          <span className="feature-icon">☁️</span>
+          <h3>Unmatched Comfort</h3>
+          <p>
+            Advanced ergonomic engineering provides all-day support without
+            sacrificing elegance.
+          </p>
+        </div>
+      </section>
+
+      {/* ---- CRAFTSMANSHIP SHOWCASE ---- */}
+      <section className="craft-section fade-in">
+        <div className="craft-text">
+          <h2>The Art of Making</h2>
+          <p>
+            Behind every pair of SoleStyle shoes is a team of master artisans.
+            From pattern cutting to final stitching, each step is performed with
+            precision and passion.
+          </p>
+        </div>
+
+        
+      </section>
+
     </div>
   );
 }
-
-export default AboutPage;
