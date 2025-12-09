@@ -49,49 +49,55 @@ function App() {
                   <TestimonialsSection />
                 </>
               ) : (
-                <Navigate to="/login" />
+                <Navigate to="/login" replace />
               )
             }
           />
 
           <Route
             path="/shop"
-            element={isLoggedIn ? <ShopPage /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <ShopPage /> : <Navigate to="/login" replace />}
           />
 
           <Route
             path="/about"
-            element={isLoggedIn ? <AboutPage /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <AboutPage /> : <Navigate to="/login" replace />}
           />
 
           <Route
             path="/contact"
-            element={isLoggedIn ? <ContactPage /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <ContactPage /> : <Navigate to="/login" replace />}
           />
 
           <Route
             path="/product/:id"
-            element={isLoggedIn ? <ProductDetailsPage /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <ProductDetailsPage /> : <Navigate to="/login" replace />}
           />
 
           <Route
             path="/cart"
-            element={isLoggedIn ? <CartPage /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <CartPage /> : <Navigate to="/login" replace />}
           />
 
           <Route
             path="/checkout"
-            element={isLoggedIn ? <CheckoutPage /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <CheckoutPage /> : <Navigate to="/login" replace />}
           />
 
           <Route
             path="/account"
-            element={isLoggedIn ? <AccountSettings /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <AccountSettings /> : <Navigate to="/login" replace />}
           />
 
           <Route
             path="/orders"
-            element={isLoggedIn ? <OrdersPage /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <OrdersPage /> : <Navigate to="/login" replace />}
+          />
+
+          {/* IMPORTANT FIX → CATCH ANY UNKNOWN ROUTES */}
+          <Route
+            path="*"
+            element={<Navigate to={isLoggedIn ? "/" : "/login"} replace />}
           />
 
         </Routes>

@@ -1,11 +1,15 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "true"
-  );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Load login state safely on FIRST render
+  useEffect(() => {
+    const savedLogin = localStorage.getItem("isLoggedIn");
+    setIsLoggedIn(savedLogin === "true");
+  }, []);
 
   const login = () => {
     localStorage.setItem("isLoggedIn", "true");
@@ -13,7 +17,7 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    localStorage.removeItem("isLoggedIn");
+    localStorage.setItem("isLoggedIn", "false"); // safer than removeItem
     setIsLoggedIn(false);
   };
 
