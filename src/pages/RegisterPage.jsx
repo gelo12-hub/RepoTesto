@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import "./login.css"; // reuse same styling
+import "./login.css";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
 
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -13,8 +11,7 @@ export default function RegisterPage() {
   const handleRegister = () => {
     if (email.trim() !== "" && pass.trim() !== "") {
       alert("Account created!");
-      login();
-      navigate("/");
+      navigate("/login"); // ⬅ user goes to login page manually
     } else {
       alert("Fill all fields");
     }

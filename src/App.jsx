@@ -21,7 +21,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import ProductDetailsPage from './pages/ProductDetailsPage.jsx';
 import AccountSettings from './pages/AccountSettings.jsx';
 import OrdersPage from "./pages/OrdersPage.jsx";
-import RegisterPage from "./pages/RegisterPage.jsx"; // ✅ NEW
+import RegisterPage from "./pages/RegisterPage.jsx";
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -38,32 +38,61 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
 
           {/* PROTECTED ROUTES */}
-          {isLoggedIn ? (
-            <>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <HeroSection />
-                    <FeaturesSection />
-                    <JourneySection />
-                    <TestimonialsSection />
-                  </>
-                }
-              />
+          <Route
+            path="/"
+            element={
+              isLoggedIn ? (
+                <>
+                  <HeroSection />
+                  <FeaturesSection />
+                  <JourneySection />
+                  <TestimonialsSection />
+                </>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
 
-              <Route path="/shop" element={<ShopPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/product/:id" element={<ProductDetailsPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/checkout" element={<CheckoutPage />} />
-              <Route path="/account" element={<AccountSettings />} />
-              <Route path="/orders" element={<OrdersPage />} />
-            </>
-          ) : (
-            <Route path="*" element={<Navigate to="/login" />} />
-          )}
+          <Route
+            path="/shop"
+            element={isLoggedIn ? <ShopPage /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/about"
+            element={isLoggedIn ? <AboutPage /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/contact"
+            element={isLoggedIn ? <ContactPage /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/product/:id"
+            element={isLoggedIn ? <ProductDetailsPage /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/cart"
+            element={isLoggedIn ? <CartPage /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/checkout"
+            element={isLoggedIn ? <CheckoutPage /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/account"
+            element={isLoggedIn ? <AccountSettings /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/orders"
+            element={isLoggedIn ? <OrdersPage /> : <Navigate to="/login" />}
+          />
 
         </Routes>
       </main>

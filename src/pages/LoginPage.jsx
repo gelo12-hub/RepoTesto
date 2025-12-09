@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
@@ -10,6 +10,11 @@ export default function LoginPage() {
 
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+
+  // ✅ This forces login page to show by resetting previous session
+  useEffect(() => {
+    localStorage.removeItem("isLoggedIn");
+  }, []);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -82,21 +87,19 @@ export default function LoginPage() {
 
           {/* GOOGLE LOGIN */}
           <button className="social-btn google" onClick={handleGoogleLogin}>
-             Continue with Google
+            Continue with Google
           </button>
-
 
           {/* CREATE ACCOUNT */}
           <div className="signup">
             New to SoleStyle?{" "}
             <span
-             style={{ color: "#3b82f6", cursor: "pointer", fontWeight: "500" }}
-             onClick={() => navigate("/register")}
+              style={{ color: "#3b82f6", cursor: "pointer", fontWeight: "500" }}
+              onClick={() => navigate("/register")}
             >
               Create an account
-  </span>
-</div>
-
+            </span>
+          </div>
 
         </div>
       </div>
