@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import { useAuth } from "./context/AuthContext";
 
@@ -25,19 +25,29 @@ import RegisterPage from "./pages/RegisterPage.jsx";
 
 function App() {
   const { isLoggedIn } = useAuth();
+  const location = useLocation();
+
+  // 1. Define paths where the Header and Footer should be HIDDEN
+  const noHeaderPaths = ['/login', '/register']; 
+
+  // 2. Check if the Header/Footer should be shown:
+  const shouldShowNavComponents = !noHeaderPaths.includes(location.pathname) && isLoggedIn;
 
   return (
-    <>
-      {isLoggedIn && <Header />}
+    // START: ADDED THE WRAPPER DIV WITH THE app-container CLASS
+    <div className="app-container"> 
+      
+      {/* CONDITIONAL RENDERING: Only show Header if both checks pass */}
+      {shouldShowNavComponents && <Header />}
 
       <main>
         <Routes>
 
-          {/* PUBLIC ROUTES */}
+          {/* PUBLIC ROUTES - Header/Footer are hidden here */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
-          {/* PROTECTED ROUTES */}
+          {/* PROTECTED ROUTES - Header/Footer will show here, assuming isLoggedIn is true */}
           <Route
             path="/"
             element={
@@ -103,8 +113,11 @@ function App() {
         </Routes>
       </main>
 
-      {isLoggedIn && <Footer />}
-    </>
+      {/* Footer is also hidden on /login and /register */}
+      {shouldShowNavComponents && <Footer />}
+      
+    </div> 
+    // END: CLOSED THE WRAPPER DIV
   );
 }
 

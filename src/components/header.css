@@ -170,3 +170,84 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* --- CSS for Orders Notification Badge (Positioning) --- */
+
+/* 1. Make the list item the positioning context for the badge */
+.orders-badge-container {
+    position: relative; 
+}
+
+/* 2. Style the actual badge */
+.orders-count {
+    position: absolute;
+    top: -8px; 
+    right: -15px; 
+    background-color: #e74c3c; 
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 18px; 
+    text-align: center;
+}
+
+/* --- STYLES FOR THE NEW SEARCH BAR --- */
+
+/* * 1. Ensure the search bar is positioned correctly within the .navbar-container 
+ * (which already uses display: flex and justify-content: space-between)
+ */
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* Allows the search bar to take up available space in the middle */
+    max-width: 450px; /* Limits the search bar width on wide screens */
+    height: 40px;
+    
+    /* Style to match the clean, premium feel of the header */
+    border: 1px solid #e0e0e0; 
+    border-radius: 20px;
+    background-color: #fff; 
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08); /* A slight shadow for depth */
+    overflow: hidden; 
+}
+
+/* 2. Style the input field */
+.search-bar input[type="text"] {
+    flex-grow: 1;
+    padding: 0 15px; 
+    height: 100%; 
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: #333;
+    background: transparent;
+}
+
+/* 3. Style the search button (magnifying glass icon) */
+.search-bar button {
+    /* Center the icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    height: 100%;
+    padding: 0 15px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.search-bar button:hover {
+    background-color: #f0f0f0; 
+    color: #007bff; /* Hover color to match link hover */
+}
+
+.search-icon {
+    font-size: 18px; /* Slightly larger icon */
+    color: #555; 
+    line-height: 1; /* Ensures icon alignment */
+}

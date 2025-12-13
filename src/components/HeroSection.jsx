@@ -7,7 +7,7 @@ function HeroSection() {
         <h1>Step Into Style with Premium Footwear</h1>
         <p>Discover our curated collection of luxury shoes, sneakers, and boots crafted for the modern lifestyle. From casual comfort to formal elegance, find your perfect pair.</p>
         <div className="hero-buttons">
-          <a href="/shop" className="btn-primary">Shop Now</a>
+        
       
         </div>
       </div>

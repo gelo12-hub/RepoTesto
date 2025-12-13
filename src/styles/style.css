@@ -27,38 +27,23 @@ h1, h2, h3, h4 {
 }
 
 section {
-    padding: 20px; /* Remove top/bottom padding initially */
+    padding: 20px;
     text-align: center;
 }
 
 /* ------------------------------------------------ */
-/* ✅ FIX: This section forces the Testimonials Section to have less top padding */
+/* FIX: This section forces the Testimonials Section to have less top padding */
 /* ------------------------------------------------ */
 
-/* The JourneySection has class .journey-section. 
-   The TestimonialsSection is the next section element (+ section).
-   This targets the section *immediately* after the journey section. */
 .journey-section {
-    margin-top: 40px; /* Separates it from the content above (e.g., header) */
-    margin-bottom: 40px; /* Creates the space below the journey content */
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
-/* This targets the Testimonials Section directly, using !important to ensure 
-   it overrides the default 'section' rule (60px) and closes the gap. */
+
 .testimonials-section {
-    /* Reduce the space above "What Our Customers Say" */
     margin-top: 30px; 
     margin-bottom: 40px; 
 }
-
-/* Old, ineffective rules removed:
-.testimonial-cards-container { 
-    padding-top: 30px; 
-}
-.hero-section + section {
-    padding-top: 30px; 
-}
-*/
-
 
 .logo {
     font-size: 1.5rem;
@@ -218,30 +203,29 @@ footer { background-color: var(--background-light); padding: 60px 20px; }
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
+/* --- FIX: REMOVE UNDERLINE FROM PRODUCT LINKS --- */
+.product-card a {
+    text-decoration: none; 
+    color: inherit;       
+}
+/* ------------------------------------------------ */
+
 .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
 .product-card h4 { margin: 10px 0 5px; font-size: 1.1rem; }
 .product-card .price { color: var(--primary-blue); font-weight: bold; margin-bottom: 15px; font-size: 1.2rem; }
 
 /* FIX: Ensure images do not overflow their product card container */
 .product-card img {
-    /* Forces the image to occupy 100% of the card's width */
     width: 100%;
-    /* Ensures the image maintains its aspect ratio when scaling */
     height: auto;
-    /* Optional: Sets a specific height and crops the image to fill the space */
-    /* height: 200px; 
-    object-fit: cover; */
-    /* Adds spacing below the image */
     margin-bottom: 15px;
-    /* Ensures the image is treated as a block element */
     display: block;
-    /* Smooth transition for visual effects (like hover on the card) */
     transition: transform 0.3s;
 }
 
 /* COLLECTIONS PAGE STYLES (Fixed) */
 .collection-list {
-    display: flex; /* Ensures collection items align horizontally */
+    display: flex;
     justify-content: center;
     gap: 40px;
     margin-top: 40px;
@@ -270,7 +254,7 @@ footer { background-color: var(--background-light); padding: 60px 20px; }
 .mission-image-placeholder { 
     flex: 1; 
     min-height: 300px; 
-    background-color: #e9e9e9; /* Added color for visibility */
+    background-color: #e9e9e9;
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -311,7 +295,7 @@ footer { background-color: var(--background-light); padding: 60px 20px; }
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
-    margin-bottom: 10px; /* Added spacing */
+    margin-bottom: 10px;
 }
 .contact-form button { margin-top: 20px; width: 100%; }
 .map-placeholder {
@@ -325,11 +309,8 @@ footer { background-color: var(--background-light); padding: 60px 20px; }
 }
 
 .hero-image-placeholder {
-    /* Use a wider width and a smaller height to better fit the layout */
     width: 500px; 
     height: 400px; 
-    
-    /* Keep these to center the image */
     display: flex; 
     justify-content: center; 
     align-items: center; 
@@ -337,30 +318,21 @@ footer { background-color: var(--background-light); padding: 60px 20px; }
 }
 
 .hero-image-placeholder img {
-    /* Set the image to fill the container's space */
     width: 100%;
     height: 100%;
-    
-    /* Use 'cover' to ensure the space is fully filled,
-       which is now more appropriate for the new container size. */
     object-fit: cover; 
 }
 
 .hero-section {
-    /* Existing layout styles... */
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
     max-width: 1200px; 
     margin: 80px auto; 
     padding: 0 20px; 
-    
-    /* ------------------------------------- */
-    /* NEW: Change the background color here */
-    /* ------------------------------------- */
     background: linear-gradient(135deg, #1184ff, #ffffff, #4ebefa);
-    padding: 45px 25px; /* Add internal padding to contain the content nicely */
-    border-radius: 10px; /* Optional: adds rounded corners */
+    padding: 45px 25px;
+    border-radius: 10px;
 }
 
 .product-details {
@@ -401,3 +373,20 @@ footer { background-color: var(--background-light); padding: 60px 20px; }
   cursor: pointer;
 }
 
+/* --- STICKY FOOTER STYLES --- */
+html, body, #root { 
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+/* --- END STICKY FOOTER STYLES --- */

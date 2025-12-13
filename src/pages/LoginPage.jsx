@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useAuth } from "../context/AuthContext";
 import "./login.css";
 
@@ -8,38 +7,23 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const [phone, setPhone] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
-
-  // ✅ This forces login page to show by resetting previous session
-  useEffect(() => {
-    localStorage.removeItem("isLoggedIn");
-  }, []);
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (phone.trim() !== "" && password.trim() !== "") {
-      login();
-      navigate("/");
-    } else {
-      alert("Please enter phone and password");
+    if (!identifier.trim() || !password.trim()) {
+      alert("Please enter email/phone and password");
+      return;
     }
-  };
 
-  // ✅ Redirects to REAL Facebook login page
-  const handleFacebookLogin = () => {
-    window.location.href = "https://www.facebook.com/login.php";
-  };
-
-  // ✅ Redirects to REAL Google login page
-  const handleGoogleLogin = () => {
-    window.location.href = "https://accounts.google.com/signin";
+    login();
+    navigate("/");
   };
 
   return (
     <div className="login-container">
-
       <div className="brand-title">SoleStyle</div>
 
       <div className="login-left">
@@ -54,15 +38,14 @@ export default function LoginPage() {
       </div>
 
       <div className="login-right">
-        <div className="login-box">
-
+        <form className="login-box" onSubmit={handleLogin}>
           <h2>Log In</h2>
 
           <input
             type="text"
-            placeholder="Phone number / Email"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Phone number or Email"
+            value={identifier}
+            onChange={(e) => setIdentifier(e.target.value)}
           />
 
           <input
@@ -72,38 +55,20 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button className="login-btn" onClick={handleLogin}>
+          <button className="login-btn" type="submit">
             LOG IN
           </button>
 
           <div className="forgot">Forgot Password?</div>
 
-          <div className="divider">OR</div>
-
-          {/* FACEBOOK LOGIN */}
-          <div className="social-btn facebook" onClick={handleFacebookLogin}>
-            Continue with Facebook
-          </div>
-
-          {/* GOOGLE LOGIN */}
-          <button className="social-btn google" onClick={handleGoogleLogin}>
-            Continue with Google
-          </button>
-
-          {/* CREATE ACCOUNT */}
           <div className="signup">
             New to SoleStyle?{" "}
-            <span
-              style={{ color: "#3b82f6", cursor: "pointer", fontWeight: "500" }}
-              onClick={() => navigate("/register")}
-            >
+            <span onClick={() => navigate("/register")}>
               Create an account
             </span>
           </div>
-
-        </div>
+        </form>
       </div>
-
     </div>
   );
 }

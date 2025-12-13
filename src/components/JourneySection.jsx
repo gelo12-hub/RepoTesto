@@ -12,8 +12,9 @@ function JourneySection() {
                     <li>✅ Sustainable manufacturing process</li>
                     <li>✅ 30-day satisfaction guarantee</li>
                 </ul>
-                <a href="/about" className="btn-primary">Learn More</a>
+        
             </div>
+            
             <div className="journey-image-placeholder"></div>
         </section>
     );

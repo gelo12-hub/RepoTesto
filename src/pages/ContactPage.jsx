@@ -40,14 +40,14 @@ export default function ContactPage() {
         <div className="support-box">
           <span className="support-icon">📧</span>
           <h3>Email Us</h3>
-          <p>support@solestyle.com</p>
+          <p>vgil03198@gmail.com</p>
           <small>Replies within 24 hours</small>
         </div>
 
         <div className="support-box">
           <span className="support-icon">📍</span>
           <h3>Location</h3>
-          <p>Manila, Philippines</p>
+          <p>Laguna, Philippines</p>
           <small>Headquarters</small>
         </div>
       </div>

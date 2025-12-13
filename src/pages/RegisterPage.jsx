@@ -4,22 +4,21 @@ import "./login.css";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleRegister = () => {
-    if (email.trim() !== "" && pass.trim() !== "") {
-      alert("Account created!");
-      navigate("/login"); // ⬅ user goes to login page manually
-    } else {
+    if (!identifier.trim() || !password.trim()) {
       alert("Fill all fields");
+      return;
     }
+
+    alert("Account created successfully!");
+    navigate("/login");
   };
 
   return (
     <div className="login-container">
-
       <div className="brand-title">SoleStyle</div>
 
       <div className="login-left">
@@ -31,21 +30,20 @@ export default function RegisterPage() {
 
       <div className="login-right">
         <div className="login-box">
-
           <h2>Create Account</h2>
 
           <input
             type="text"
-            placeholder="Phone number/email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Phone number or Email"
+            value={identifier}
+            onChange={(e) => setIdentifier(e.target.value)}
           />
 
           <input
             type="password"
             placeholder="Password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <button className="login-btn" onClick={handleRegister}>
@@ -54,14 +52,10 @@ export default function RegisterPage() {
 
           <div className="signup">
             Already have an account?{" "}
-            <span onClick={() => navigate("/login")}>
-              Log in
-            </span>
+            <span onClick={() => navigate("/login")}>Log in</span>
           </div>
-
         </div>
       </div>
-
     </div>
   );
 }
