@@ -1,16 +1,35 @@
-import React, { useState } from "react";
+// src/pages/LoginPage.jsx
+
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+// Get the centralized context function and isLoggedIn state
+import { useAuth } from "../context/AuthContext"; 
 import "./login.css";
+
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  // We now pull 'isLoggedIn' from the context
+  const { login, isLoggedIn } = useAuth(); 
 
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  // =========================================================
+  // 🛑 THE FIX: Redirect if already logged in
+  // If the user somehow lands on /login while authenticated,
+  // push them back to the home page immediately.
+  // =========================================================
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/", { replace: true });
+    }
+  }, [isLoggedIn, navigate]);
+  // =========================================================
+
+
+  // Calls the context function to handle Firebase sign-in
+  const handleLogin = async (e) => { 
     e.preventDefault();
 
     if (!identifier.trim() || !password.trim()) {
@@ -18,8 +37,20 @@ export default function LoginPage() {
       return;
     }
 
-    login();
-    navigate("/");
+    try {
+      // Call the centralized login function
+      await login(identifier.trim(), password.trim());
+      
+      // Success: Navigate to the home page
+      alert("Login successful!"); 
+      // The useEffect above will handle the navigation, but keeping this for immediate feedback
+      navigate("/"); 
+
+    } catch (error) {
+      // Catch the user-friendly error message thrown by AuthContext
+      console.error("Login attempt failed:", error.message);
+      alert(error.message);
+    }
   };
 
   return (
@@ -43,7 +74,7 @@ export default function LoginPage() {
 
           <input
             type="text"
-            placeholder="Phone number or Email"
+            placeholder="Enter your Email"
             value={identifier}
             onChange={(e) => setIdentifier(e.target.value)}
           />
@@ -58,8 +89,6 @@ export default function LoginPage() {
           <button className="login-btn" type="submit">
             LOG IN
           </button>
-
-          <div className="forgot">Forgot Password?</div>
 
           <div className="signup">
             New to SoleStyle?{" "}

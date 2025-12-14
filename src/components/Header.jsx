@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom"; // ADDED useNavigate
+import { Link, NavLink, useNavigate } from "react-router-dom"; 
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import { useOrders } from "../context/OrdersContext";
@@ -7,31 +7,41 @@ import "./header.css";
 
 export default function Header() {
     const { cart } = useCart();
+    // --- CRITICAL: Get logout and isLoggedIn ---
     const { isLoggedIn, logout } = useAuth();
     const { orderCount } = useOrders();
 
     const [menuOpen, setMenuOpen] = useState(false);
-    // 🟢 ADDED: State for the search input
-    const [searchTerm, setSearchTerm] = useState('');
-    const navigate = useNavigate(); // 🟢 ADDED: Hook for navigation
+    const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate(); 
 
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    
-    // 🟢 ADDED: Handler for search input changes
-    const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value);
-    };
+    
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
 
-    // 🟢 ADDED: Handler for search form submission
-    const handleSearchSubmit = (event) => {
-        event.preventDefault();
-        
-        if (searchTerm.trim()) {
-            // Redirect to the /shop route, passing the search term as a URL parameter
-            navigate(`/shop?search=${encodeURIComponent(searchTerm.trim())}`);
-            setSearchTerm(''); // Clear the input after searching
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+        
+        if (searchTerm.trim()) {
+            navigate(`/shop?search=${encodeURIComponent(searchTerm.trim())}`);
+            setSearchTerm(''); 
+        }
+    };
+
+    // 🟢 ADDED: Handler to securely log out and navigate
+    const handleLogout = async () => {
+        try {
+            await logout(); // Secure Firebase Sign Out
+            navigate('/login'); // Immediate client-side redirection
+            setMenuOpen(false); // Close the menu
+        } catch (error) {
+            console.error("Logout failed:", error);
+            alert("Logout failed. Please try again.");
         }
     };
+    // ---------------------------------------------
 
 
     return (
@@ -43,21 +53,20 @@ export default function Header() {
                     <Link to="/">SoleStyle</Link>
                 </div>
 
-                {/* 🟢 ADDED: SEARCH BAR COMPONENT */}
-                <form className="search-bar" onSubmit={handleSearchSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Search products..."
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        aria-label="Search products"
-                    />
-                    <button type="submit" aria-label="Search">
-                        {/* Using a simple magnifying glass icon */}
-                        <span className="search-icon">🔍</span>
-                    </button>
-                </form>
-                {/* ------------------------------------- */}
+                {/* SEARCH BAR COMPONENT */}
+                <form className="search-bar" onSubmit={handleSearchSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Search products..."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        aria-label="Search products"
+                    />
+                    <button type="submit" aria-label="Search">
+                        <span className="search-icon">🔍</span>
+                    </button>
+                </form>
+                {/* ------------------------------------- */}
 
                 {/* NAVIGATION */}
                 <nav>
@@ -67,8 +76,8 @@ export default function Header() {
                         <li><NavLink to="/about">About</NavLink></li>
                         <li><NavLink to="/contact">Contact</NavLink></li>
 
-                        {/* MY ORDERS WITH BADGE - MINIMAL EDIT HERE */}
-                        <li className="orders-badge-container"> {/* ADDED CLASS for CSS positioning */}
+                        {/* MY ORDERS WITH BADGE */}
+                        <li className="orders-badge-container">
                             <NavLink to="/orders">My Orders</NavLink>
                             {orderCount > 0 && (
                                 <span className="orders-count">{orderCount}</span>
@@ -102,11 +111,12 @@ export default function Header() {
                                 {menuOpen && (
                                     <div className="profile-menu">
                                         
-                                        {/* ADD other profile menu links here (e.g., Account Settings, Logout) */}
-                                        <Link to="/account" onClick={() => setMenuOpen(false)}>
+                                        <Link to="/account" onClick={() => setMenuOpen(false)}>
                                             Account Settings
                                         </Link>
-                                        <button onClick={logout}>Logout</button>
+                                        
+                                        {/* 🟢 FIXED: Use handleLogout instead of direct logout call */}
+                                        <button onClick={handleLogout}>Logout</button>
                                     </div>
                                 )}
                             </li>

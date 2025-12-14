@@ -1,12 +1,13 @@
 // src/pages/AccountSettings.jsx
+
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import "./account.css";
 
 export default function AccountSettings() {
-    const { userDetails, updateUserDetails, shippingAddress } = useAuth(); // 🚀 Pull shippingAddress
+    const { userDetails, updateUserDetails, shippingAddress } = useAuth(); 
     
-    // State for Personal Info (same as previous step)
+    // State for Personal Info 
     const [fullName, setFullName] = useState(userDetails.fullName || '');
     const [phoneNumber, setPhoneNumber] = useState(userDetails.phoneNumber || '');
     const [email, setEmail] = useState(userDetails.email || '');
@@ -46,118 +47,86 @@ export default function AccountSettings() {
         setConfirmPassword('');
     };
 
-  return (
-    <div className="account-container">
-      <h2 className="account-title">Account Settings</h2>
+    return (
+        <div className="account-container">
+            <h2 className="account-title">Account Settings</h2>
 
-      <div className="account-box">
+            <div className="account-box">
 
-        <div className="account-section">
-          <h3>Personal Information</h3>
-          <label>
-            Full Name
-            <input 
-                type="text" 
-                placeholder="Enter your full name" 
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-            />
-          </label>
-
-          <label>
-            Phone Number
-            <input 
-                type="text" 
-                placeholder="Enter your phone number" 
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </label>
-
-          <label>
-            Email
-            <input 
-                type="email" 
-                placeholder="Enter your email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-        </div>
-
-        <button className="save-btn" onClick={handleSavePersonalDetails} style={{ marginBottom: '20px' }}>
-            Save Personal Details
-        </button>
-        
-        {/* 🚀 NEW SECTION: SAVED SHIPPING ADDRESS */}
-        <div className="account-section">
-          <h3>Saved Shipping Address</h3>
-            
-            {shippingAddress.region ? (
-                <>
+                <div className="account-section">
+                    <h3>Personal Information</h3>
                     <label>
-                        Region
-                        <input type="text" value={shippingAddress.region} disabled />
+                        Full Name
+                        <input 
+                            type="text" 
+                            placeholder="Enter your full name" 
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                        />
                     </label>
+
                     <label>
-                        Province
-                        <input type="text" value={shippingAddress.province} disabled />
+                        Phone Number
+                        <input 
+                            type="text" 
+                            placeholder="Enter your phone number" 
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                        />
                     </label>
+
                     <label>
-                        City / Municipality
-                        <input type="text" value={shippingAddress.city} disabled />
+                        Email
+                        <input 
+                            type="email" 
+                            placeholder="Enter your email" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                     </label>
-                    <label>
-                        Barangay
-                        <input type="text" value={shippingAddress.barangay} disabled />
-                    </label>
-                    <label>
-                        Street / House No.
-                        <input type="text" value={shippingAddress.street} disabled />
-                    </label>
-                </>
-            ) : (
-                <p>No saved shipping address found. This is usually saved when placing an order.</p>
-            )}
+                </div>
 
-        </div>
+                <button className="save-btn" onClick={handleSavePersonalDetails} style={{ marginBottom: '20px' }}>
+                    Save Personal Details
+                </button>
+                
+                {/* ⭐ FIXED SECTION: SAVED SHIPPING ADDRESS */}
+                <div className="account-section">
+                    <h3>Saved Shipping Address</h3>
+                    
+                    {/* The fix: Check if shippingAddress is NOT null/undefined before accessing .region */}
+                    {shippingAddress && shippingAddress.region ? (
+                        <>
+                            <label>
+                                Region
+                                <input type="text" value={shippingAddress.region} disabled />
+                            </label>
+                            <label>
+                                Province
+                                <input type="text" value={shippingAddress.province} disabled />
+                            </label>
+                            <label>
+                                City / Municipality
+                                <input type="text" value={shippingAddress.city} disabled />
+                            </label>
+                            <label>
+                                Barangay
+                                <input type="text" value={shippingAddress.barangay} disabled />
+                            </label>
+                            <label>
+                                Street / House No.
+                                <input type="text" value={shippingAddress.street} disabled />
+                            </label>
+                        </>
+                    ) : (
+                        <p>No saved shipping address found. This is usually saved when placing an order.</p>
+                    )}
 
-        <div className="account-section">
-          <h3>Change Password</h3>
-          <label>
-            Current Password
-            <input 
-                type="password" 
-                placeholder="Current password" 
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-            />
-          </label>
+                </div>
+                {/* END FIXED SECTION */}
 
-          <label>
-            New Password
-            <input 
-                type="password" 
-                placeholder="New password" 
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-            />
-          </label>
 
-          <label>
-            Confirm Password
-            <input 
-                type="password" 
-                placeholder="Confirm password" 
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </label>
-        </div>
-        
-        <button className="save-btn" onClick={handleChangePassword}>Change Password</button>
-
-      </div>
-    </div>
-  );
+            </div>
+        </div>
+    );
 }

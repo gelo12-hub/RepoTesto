@@ -1,85 +1,146 @@
-// src/context/AuthContext.jsx
-import { createContext, useContext, useState, useEffect } from "react";
+  // src/context/AuthContext.jsx
 
-const AuthContext = createContext();
+  import { createContext, useContext, useState, useEffect } from "react";
+  import { auth, db } from "../firebase";
+  import { onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth"; 
+  import { doc, getDoc, setDoc } from "firebase/firestore";
 
-export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
-  const [userDetails, setUserDetails] = useState({
-    fullName: "",
-    phoneNumber: "",
-    email: "", 
-  });
-    
-  // 🚀 NEW STATE FOR SHIPPING ADDRESS
-  const [shippingAddress, setShippingAddress] = useState({
-    region: "",
-    province: "",
-    city: "",
-    barangay: "",
-    street: "", // Assuming this is the Street / House No. / Block / Lot field
-  });
+  const AuthContext = createContext();
+
+  export function AuthProvider({ children }) {
+    const [user, setUser] = useState(null); 
+    const [isLoading, setIsLoading] = useState(true); 
+
+    const [userDetails, setUserDetails] = useState({
+      fullName: "",
+      phoneNumber: "",
+      email: "",
+      uid: "", 
+    });
+      
+    const [shippingAddress, setShippingAddress] = useState(null);
 
 
-  useEffect(() => {
-    // Initialize login status
-    setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-    
-    // Initialize user details from localStorage
-    const storedDetails = localStorage.getItem("userDetails");
-    if (storedDetails) {
-      setUserDetails(JSON.parse(storedDetails));
-    }
-    
-    // 🚀 NEW: Initialize shipping address from localStorage
-    const storedAddress = localStorage.getItem("shippingAddress");
-    if (storedAddress) {
-      setShippingAddress(JSON.parse(storedAddress));
-    }
-  }, []);
+    // =========================================================
+    // 1. FIREBASE LISTENER (Core of state synchronization)
+    // =========================================================
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+        setUser(currentUser); 
 
-  const login = () => {
-    localStorage.setItem("isLoggedIn", "true");
-    setIsLoggedIn(true);
-  };
+        if (currentUser) {
+          // User is Logged In: Load details from Firestore
+          const userDocRef = doc(db, "users", currentUser.uid);
+          const userDoc = await getDoc(userDocRef);
 
-  const logout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userDetails");
-    // 🚀 NEW: Clear address on logout
-    localStorage.removeItem("shippingAddress"); 
-    
-    setIsLoggedIn(false);
-    setUserDetails({ fullName: "", phoneNumber: "", email: "" });
-    setShippingAddress({ region: "", province: "", city: "", barangay: "", street: "" });
-  };
-    
-  const updateUserDetails = (name, phone, email) => {
-    const newDetails = { fullName: name, phoneNumber: phone, email: email || userDetails.email };
-    localStorage.setItem("userDetails", JSON.stringify(newDetails));
-    setUserDetails(newDetails);
-  };
+          if (userDoc.exists()) {
+              const data = userDoc.data();
+              
+              setUserDetails({ 
+                  fullName: data.fullName || "", 
+                  phoneNumber: data.phoneNumber || "", 
+                  email: currentUser.email,
+                  uid: currentUser.uid
+              });
 
-  // 🚀 NEW FUNCTION TO UPDATE SHIPPING ADDRESS
-  const updateShippingAddress = (addressData) => {
-    localStorage.setItem("shippingAddress", JSON.stringify(addressData));
-    setShippingAddress(addressData);
-  };
+              setShippingAddress(data.shippingAddress || null);
+              
+          } else {
+              // Create document if it doesn't exist (e.g., after first registration)
+              await setDoc(userDocRef, { 
+                  email: currentUser.email, 
+                  createdAt: new Date(),
+              });
+              setUserDetails({ email: currentUser.email, uid: currentUser.uid });
+              setShippingAddress(null);
+          }
+        } else {
+          // User is Logged Out: Clear local state
+          setUserDetails({ fullName: "", phoneNumber: "", email: "", uid: "" });
+          setShippingAddress(null);
+        }
+        setIsLoading(false); // Authentication status check is complete: **CORRECTLY PLACED**
+      });
 
-  return (
-    <AuthContext.Provider value={{ 
-        isLoggedIn, 
-        login, 
-        logout,
-        userDetails,       
-        updateUserDetails,
-        shippingAddress,       // 🚀 EXPORT
-        updateShippingAddress  // 🚀 EXPORT
-    }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
+      return () => unsubscribe(); 
+    }, []);
 
-export const useAuth = () => useContext(AuthContext);
+
+    // =========================================================
+    // 2. FIREBASE LOGIN FUNCTION 
+    // =========================================================
+    const login = async (email, password) => {
+      try {
+          await signInWithEmailAndPassword(auth, email, password);
+          return true; 
+      } catch (error) {
+        // NOTE: Using Firebase error codes is a good practice!
+        let errorMessage = "Login failed. Check your email and password.";
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+            errorMessage = "Account not found or invalid email/password.";
+        } else if (error.code === 'auth/wrong-password') {
+            errorMessage = "Incorrect password. Please try again.";
+        } 
+        throw new Error(errorMessage); 
+      }
+    };
+
+
+    // =========================================================
+    // 3. FIREBASE LOGOUT FUNCTION
+    // =========================================================
+    const logout = async () => {
+      try {
+          await signOut(auth); 
+          alert("Logged out successfully!");
+      } catch (error) {
+          console.error("Logout Error:", error);
+      }
+    };
+
+    // ---------------------------------------------------------
+    // 4. DATABASE SAVE FUNCTIONS
+    // ---------------------------------------------------------
+    const updateUserDetails = async (name, phone) => {
+      if (!user) return; 
+
+      const newDetails = { fullName: name, phoneNumber: phone };
+      
+      const userDocRef = doc(db, "users", user.uid);
+      await setDoc(userDocRef, newDetails, { merge: true });
+      
+      setUserDetails(prev => ({ ...prev, ...newDetails }));
+    };
+
+    const updateShippingAddress = async (addressData) => {
+      if (!user) return; 
+      
+      const userDocRef = doc(db, "users", user.uid);
+      await setDoc(userDocRef, { shippingAddress: addressData }, { merge: true });
+
+      setShippingAddress(addressData);
+    };
+    // ---------------------------------------------------------
+
+
+    return (
+      <AuthContext.Provider 
+        value={{ 
+          isLoggedIn: !!user, 
+          isLoading,
+          currentUser: user,
+          login, 
+          logout,
+          userDetails,
+          updateUserDetails,
+          shippingAddress,
+          updateShippingAddress 
+        }}
+      >
+        {/* Render children only after the initial Firebase check is complete */}
+        {children} 
+      </AuthContext.Provider>
+    );
+  }
+
+  export const useAuth = () => useContext(AuthContext);

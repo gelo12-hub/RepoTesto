@@ -166,7 +166,7 @@
   position: absolute;
   top: 15%;
   left: 80px;
-  color: white;
+  color: white; 
   z-index: 3;
   max-width: 350px;
 }

@@ -1,64 +1,136 @@
+// src/context/OrdersContext.jsx
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
+// ----------------------------------------------------------------------
+// NEW FIREBASE IMPORTS
+import { db } from "../firebase"; // <-- Corrected path confirmed
+import {
+    collection, 
+    doc, 
+    query, 
+    where, 
+    onSnapshot, // For real-time order fetching
+    addDoc,     // For adding a new order
+    updateDoc,  // For updating status (cancel)
+    deleteDoc,  // For deleting an order
+    serverTimestamp,
+    // Add orderBy here if you want to sort orders by timestamp
+    // orderBy 
+} from "firebase/firestore";
+// ----------------------------------------------------------------------
+
 
 const OrdersContext = createContext();
 
 export function OrdersProvider({ children }) {
-    const { currentUser } = useAuth(); // get logged-in user
+    const { currentUser } = useAuth(); 
     const [orders, setOrders] = useState([]);
+    const [isLoading, setIsLoading] = useState(true); 
 
-    // CALCULATED VALUE: Total count of all orders
     const orderCount = orders.length;
 
-    // Load orders for this user
+    // ----------------------------------------------------------------------
+    // FIX 1: Load orders for this user using FIRESTORE onSnapshot
     useEffect(() => {
-        if (!currentUser) {
-            setOrders([]);
+        setOrders([]); 
+        setIsLoading(true);
+
+        // 🎯 CRITICAL FIX: Ensure currentUser is not null AND has a UID
+        if (!currentUser || !currentUser.uid) {
+            setIsLoading(false);
             return;
         }
 
-        const key = `orders_user_${currentUser.phone}`;
-        const saved = JSON.parse(localStorage.getItem(key)) || [];
-        setOrders(saved);
-    }, [currentUser]);
-
-    // Save orders for THIS user only
-    const saveOrders = (updated) => {
-        if (!currentUser) return;
-        const key = `orders_user_${currentUser.phone}`;
-        localStorage.setItem(key, JSON.stringify(updated));
-    };
-
-    const addOrder = (order) => {
-        setOrders((prev) => {
-            const updated = [order, ...prev];
-            saveOrders(updated);
-            return updated;
-        });
-    };
-
-    const cancelOrder = (id) => {
-        const updated = orders.map((o) =>
-            o.id === id ? { ...o, status: "Cancelled" } : o
+        const ordersRef = collection(db, "orders");
+        
+        // Filter: only orders where the 'userId' field matches the current user's UID
+        const userOrdersQuery = query(
+            ordersRef, 
+            where("userId", "==", currentUser.uid),
+            // Optional: If you imported 'orderBy', add it here: orderBy("timestamp", "desc") 
         );
 
-        setOrders(updated);
-        saveOrders(updated);
-    };
-    
-    // 🚀 NEW FUNCTION: Permanently deletes an order from the list
-    const deleteOrder = (id) => {
-        // Use filter to create a new array without the order matching the id
-        const updated = orders.filter((o) => o.id !== id);
+        // Set up the real-time listener
+        const unsubscribe = onSnapshot(userOrdersQuery, (snapshot) => {
+            const fetchedOrders = snapshot.docs.map(doc => ({
+                firestoreId: doc.id, 
+                ...doc.data()
+            }));
+            
+            setOrders(fetchedOrders);
+            setIsLoading(false);
+        }, (error) => {
+            console.error("Failed to fetch orders:", error);
+            setIsLoading(false);
+        });
+
+        // Clean up the listener when the component unmounts or user changes
+        return () => unsubscribe();
         
-        setOrders(updated);
-        saveOrders(updated);
+    }, [currentUser]); 
+    // ----------------------------------------------------------------------
+
+
+    // ----------------------------------------------------------------------
+    // FIX 2: Add Order to FIRESTORE
+    const addOrder = async (order) => {
+        if (!currentUser) {
+            console.error("Cannot place order: User not logged in.");
+            return;
+        }
+
+        try {
+            const orderWithMetadata = {
+                ...order, 
+                userId: currentUser.uid, 
+                timestamp: serverTimestamp(), 
+            };
+
+            await addDoc(collection(db, "orders"), orderWithMetadata);
+            
+            console.log("Order placed successfully to Firestore!");
+            
+        } catch (error) {
+            console.error("Error writing order to Firestore: ", error);
+        }
+    };
+    // ----------------------------------------------------------------------
+
+
+    // ----------------------------------------------------------------------
+    // FIX 3: Cancel Order (Update Status in Firestore)
+    const cancelOrder = async (firestoreId) => {
+        try {
+            const orderRef = doc(db, "orders", firestoreId);
+            
+            await updateDoc(orderRef, {
+                status: "Cancelled"
+            });
+            
+            console.log(`Order ${firestoreId} cancelled successfully.`);
+            
+        } catch (error) {
+            console.error("Error cancelling order:", error);
+        }
+    };
+    // ----------------------------------------------------------------------
+
+
+    // FIX 4: Delete Order from FIRESTORE
+    const deleteOrder = async (firestoreId) => {
+        try {
+            await deleteDoc(doc(db, "orders", firestoreId));
+            console.log(`Order ${firestoreId} deleted successfully.`);
+        } catch (error) {
+            console.error("Error deleting order:", error);
+        }
     };
 
 
     return (
         <OrdersContext.Provider 
-            value={{ orders, addOrder, cancelOrder, deleteOrder, orderCount }}
+            value={{ orders, addOrder, cancelOrder, deleteOrder, orderCount, isLoading }}
         >
             {children}
         </OrdersContext.Provider>
