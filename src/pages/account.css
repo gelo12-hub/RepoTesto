@@ -1,0 +1,57 @@
+.account-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+}
+
+.account-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.account-box {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.account-section {
+  margin-bottom: 30px;
+}
+
+.account-section h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.account-section label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.account-section input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.save-btn {
+  width: 100%;
+  padding: 12px;
+  background: black;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  opacity: 0.9;
+}

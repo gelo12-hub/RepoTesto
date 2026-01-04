@@ -1,0 +1,150 @@
+.about-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+/* === HERO SECTION === */
+.about-hero {
+  background-image: url("/images/Fdesign/nback.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 150px 20px;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+/* Dark overlay for readability */
+.about-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: auto;
+}
+
+/* ✨ MAKE TITLE BRIGHT WHITE & CLEAR */
+.hero-text h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #ffffff !important;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.75);
+}
+
+/* ✨ Make subtitle readable too */
+.hero-text p {
+  font-size: 18px;
+  opacity: 0.95;
+  color: #ffffff !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.65);
+}
+
+/* === BRAND STORY === */
+.brand-story {
+  max-width: 850px;
+  margin: 60px auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.brand-story h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.brand-story p {
+  font-size: 18px;
+  line-height: 1.7;
+  opacity: 0.85;
+}
+
+/* === FEATURES === */
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 60px auto;
+  flex-wrap: wrap;
+  max-width: 1000px;
+}
+
+.feature-item {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 25px 20px;
+  width: 280px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-6px);
+}
+
+.feature-icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.feature-item h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.feature-item p {
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+/* === CRAFT SECTION === */
+.craft-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin: 80px auto;
+  max-width: 1000px;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.craft-text {
+  flex: 1 1 400px;
+}
+
+.craft-text h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.craft-text p {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+.craft-img img {
+  width: 420px;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* === FADE ANIMATION === */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s forwards;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

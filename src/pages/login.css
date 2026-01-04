@@ -1,0 +1,187 @@
+/* --- FULL SCREEN CONTAINER WITH BACKGROUND IMAGE --- */
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+
+  background-image: url("/images/Fdesign/nback.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* Soft overlay for readability */
+.login-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.10);
+  z-index: 0;
+}
+
+/* --- LEFT SECTION (Transparent overlay with text) --- */
+.login-left {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* --- RIGHT PANEL (Login Card Container) --- */
+.login-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10 !important;
+}
+
+/* --- LOGIN CARD --- */
+.login-box {
+  width: 380px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+  z-index: 11;
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+/* INPUTS */
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.login-box input:focus {
+  border-color: #89b5de;
+  outline: none;
+}
+
+/* LOGIN BUTTON */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: #4750fd;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login-btn:hover {
+  background: #94d8f3;
+}
+
+/* FORGOT PASSWORD */
+.forgot {
+  text-align: right;
+  color: #555;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* OR DIVIDER (kept in case you reuse later) */
+.divider {
+  text-align: center;
+  margin: 18px 0;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 42%;
+  height: 1px;
+  background: #cadff7;
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+/* SOCIAL BUTTON BASE (kept harmless) */
+.social-btn {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+/* SIGNUP */
+.signup {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.signup span {
+  color: #2238ff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* BRAND NAME */
+.brand-title {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  z-index: 3;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* QUOTE */
+.quote-box {
+  position: absolute;
+  top: 15%;
+  left: 80px;
+  color: white; 
+  z-index: 3;
+  max-width: 350px;
+}
+
+.quote-box h1 {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: white;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.quote-box p {
+  font-size: 22px;
+  opacity: 0.95;
+  color: white;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
